@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link href="https://fonts.googleapis.com/css2?family=Inria+Sans:wght@300;400;700&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Dessert House</title>
+  <style>
+    * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  }
+
+body {
+  background-color: #fff;
+  font-family: "Inria Sans", Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+
+}
+
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #ffd6d6;
+  padding: 12px 30px;
+}
+
+
+.logo {
+  display: flex;
+  flex-direction: column;   /* stack image & text vertically */
+  align-items: center;
+  color: #7a0026;
+  font-weight: bold;
+}
+
+.logo img {
+  width: 100px;
+  height: 60px;
+}
+
+.logo span {
+  font-size: 1.5rem;
+  margin-top: 4px;
+}
+
+
+/* CENTER */
+.nav-center {
+  display: flex;
+  list-style: none;
+     margin-left: 100px;
+  gap: 40px;
+}
+
+
+.nav-center a,
+.dropdown-btn {
+  text-decoration: none;
+  color: #7a0026;
+  font-weight: 700;
+  font-size: 1.8rem;
+  cursor: pointer;
+}
+
+/* Hide checkbox */
+#dessert-toggle {
+  display: none;
+}
+
+/* Dropdown */
+.dropdown {
+  position: relative;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 40px;
+  left: -20px;
+  background: #fbeeee;
+  border: 1.5px solid #000;
+  width: 200px;
+  padding: 15px 0;
+  list-style: none;
+  display: none;
+  z-index: 10;
+}
+
+.dropdown-menu li {
+  padding: 8px 25px;
+}
+
+.dropdown-menu li a {
+  color: #7a0026;
+  font-weight: 600;
+  font-size: 1.5rem;
+  padding: 10px;
+}
+
+.dropdown-menu li:hover {
+  background: #f4caca;
+}
+
+/* Show on click */
+#dessert-toggle:checked + .dropdown-btn + .dropdown-menu {
+  display: block;
+}
+
+/* RIGHT */
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  border: 1.5px solid #7a0026;
+  border-radius: 20px;
+  padding: 4px 10px;
+  background: #fff;
+}
+
+.search-box input {
+  border: none;
+  outline: none;
+  padding: 4px 6px;
+}
+.search-box button{
+    border: none;
+}
+/* Button */
+.auth-btn {
+  background-color: #fff;
+  border: 1px solid #7a0026;
+  color: #7a0026;
+  padding: 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.auth-btn:hover {
+  background-color: #7a0026;
+  color: #fff;
+}
+/* Overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+/* Modal Box */
+.modal {
+  background: #ffffff;
+  width: 460px;
+  padding: 25px;
+  border-radius: 20px;
+  position: relative;
+  text-align: left;
+}
+
+/* Close button */
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: #e6395c;
+  color: #fff;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+/* Title */
+.modal h2 {
+  margin-bottom: 20px;
+  font-size: 2rem;
+}
+
+/* Input */
+.modal input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  background: #f1f1f1;
+  font-size: 14px;
+}
+
+/* Mobile link */
+.mobile-link {
+  display: block;
+  text-align: right;
+  margin: 8px 0 18px;
+  font-size: 1.2rem;
+  color: blue;
+  text-decoration: underline;
+}
+
+/* OTP Button */
+.otp-btn {
+  width: 100%;
+  background: #ffd1d1;
+  border: none;
+  padding: 12px;
+  border-radius: 10px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  align-items: center;
+}
+
+/* Terms */
+.terms {
+  font-size: 1.2rem;
+  margin-top: 15px;
+  line-height: 1.5;
+}
+
+
+
+.about-section {
+  padding: 60px 10%;
+  text-align: center;
+}
+
+.about-title {
+  color: #8b0000;
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+.about-subtitle {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.about-intro {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 40px;
+}
+
+.about-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.about-box {
+  width: 25%;
+  text-align: left;
+}
+
+.about-box h4 {
+   font-size: 1.5rem;
+  font-weight: bold;
+  color: #8b0000;
+  margin-bottom: 8px;
+}
+
+.about-box p {
+   font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+
+.about-image {
+  width: 30%;
+  border: 2px solid #ff5a5a;
+  padding: 15px;
+}
+
+.about-image img {
+  width: 100%;
+}
+
+.about-description {
+  max-width: 900px;
+  margin: auto;
+ font-size: 1.2rem;
+  font-weight: bold;
+  line-height: 1.7;
+}
+
+.about-description p {
+  margin-bottom: 15px;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .about-content {
+    flex-direction: column;
+  }
+
+  .about-box,
+  .about-image {
+    width: 100%;
+    text-align: center;
+  }
+
+  .about-box {
+    text-align: center;
+  }
+}
+.story-section {
+  max-width: 1400px;
+  margin: auto;
+}
+
+.story-card {
+  background: #fdeeee;
+  border-radius: 16px;
+  padding: 40px;
+  display: flex;
+  gap: 30px;
+  align-items: center;
+}
+
+.story-text {
+  width: 60%;
+  font-size: 1.2rem;
+ font-weight: bold;
+  line-height: 1.7;
+}
+
+.story-text p {
+  margin-bottom: 12px;
+}
+
+.story-text .highlight {
+  color: #d61f45;
+   font-size: 1.4rem;
+ font-weight: bold;
+}
+
+.story-image {
+  width: 40%;
+  text-align: right;
+}
+
+.story-image img {
+  max-width: 100%;
+}
+
+/* Award Ribbon */
+.award-ribbon {
+  background: #d61f45;
+  color: #fff;
+  text-align: center;
+  padding: 14px;
+  margin-top: -20px;
+  border-radius: 0 0 30px 30px;
+  font-weight: 600;
+}
+
+/* Stats */
+.stats {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+  gap: 20px;
+}
+
+.stat-box {
+  background: #d61f45;
+  color: #fff;
+  flex: 1;
+  padding: 18px;
+  text-align: center;
+  border-radius: 12px;
+}
+
+.stat-box span {
+  font-size: 1.5rem;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.stat-box h4 {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .story-card {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .story-text,
+  .story-image {
+    width: 100%;
+  }
+
+  .stats {
+    flex-direction: column;
+  }
+}
+.footer {
+  background-color: #ffd1d1;
+  padding: 50px 40px 0;
+  position: relative;
+}
+
+/* Title */
+.footer h3 {
+  text-align: center;
+  color: #7a0026;
+  font-size: 2rem;
+  margin-bottom: 40px;
+}
+
+/* Layout */
+.footer-content {
+  display: grid;
+  grid-template-columns: 1.2fr auto 1fr auto 1fr auto 1.2fr;
+  align-items: center;
+  max-width: 100%;
+  margin: auto;
+}
+
+/* Columns */
+.footer-col {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  color: #7a0026;
+  font-weight: 500;
+}
+
+.footer-col a {
+  text-decoration: none;
+   font-size: 1.5rem;
+  color: #7a0026;
+}
+
+.footer-col a:hover {
+  text-decoration: underline;
+}
+
+/* Brand */
+.brand img {
+  width: 105px;
+  margin-bottom: 8px;
+}
+
+.brand h2 {
+  font-size: 1.2rem;
+}
+
+/* Divider */
+.divider {
+  width: 1px;
+  height: 130px;
+  background-color: #7a0026;
+  margin-right: 50px;
+}
+
+/* Contact */
+.contact p {
+  font-weight: 600;
+   font-size: 1.5rem;
+}
+
+/* Social */
+.socials {
+  display: flex;
+  gap: 15px;
+  margin-top: 10px;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+/* Bottom */
+.footer-bottom {
+  text-align: center;
+  padding: 15px 0;
+  margin-top: 30px;
+   font-size: 1.2rem;
+  background-color: #ffffff;
+  font-weight: 600;
+}
+
+  </style>
+</head>
+<body>
+<nav class="navbar">
+  <!-- LEFT : LOGO -->
+       <div class="logo">
+            <a href="Home.html"><img src="Images/Group 8.png" alt="Dessert House Logo"></a>
+            <span>The Dessert House</span>
+        </div>
+
+  <!-- CENTER : NAV LINKS -->
+  <ul class="nav-center">
+    <li><a href="About Us.html">About Us</a></li>
+    <li class="dropdown">
+                <input type="checkbox" id="dessert-toggle">
+                <label for="dessert-toggle" class="dropdown-btn">Desserts</label>
+
+                <ul class="dropdown-menu">
+                    <li><a href="All Desserts.html">All Desserts</a></li>
+                    <li><a href="Pastry.html">Pastry</a></li>
+                    <li><a href="Brownies.html">Brownies</a></li>
+                    <li><a href="Tart.html">Tart</a></li>
+                    <li><a href="Tea cake.html">Tea Cake</a></li>
+                    <li><a href="Cup cake.html">Cup Cake</a></li>
+                    <li><a href="Jar cake.html">Jar Cake</a></li>
+                    <li><a href="Combos.html">Combos</a></li>
+                </ul>
+    </li>
+    <li><a href="Contact.html">Contact</a></li>
+  </ul>
+
+ 
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Search">
+            <button onclick="handleSearch()">🔍</button>
+        </div>
+   
+
+
+    <button class="auth-btn" id="openModal">Log In / Sign Up</button>
+           
+            <!-- Modal Overlay -->
+            <div class="modal-overlay" id="loginModal">
+                <div class="modal">
+                    <span class="close-btn" id="closeModal">&times;</span>
+
+                    <h2>Login / Sign Up</h2>
+
+                    <input type="email" id="loginInput" placeholder="Enter Email ID" />
+
+                    <a href="#" id="toggleLink" class="mobile-link">With Mobile</a>
+
+                    <button class="otp-btn">
+                    Get OTP <span>➜</span>
+                    </button>
+
+                    <p class="terms">
+                    By continuing I agree to The Dessert House’s
+                    <strong>Terms and Conditions</strong> and
+                    <strong>Privacy Policy</strong>.
+                    </p>
+                </div>
+            </div>
+
+  </div>
+</nav>
+     <section class="about-section">
+        <h2 class="about-title">About Us</h2>
+        <p class="about-subtitle">Food of The Gods, Freshly Baked</p>
+        <p class="about-intro">
+            Since 2024, we've been serving our guests the best quality treats,
+            traditionally made and presented with care.
+        </p>
+
+        <div class="about-content">
+
+            <!-- Left Content -->
+            <div class="about-box">
+                <h4>AUTHENTIC RECIPES</h4>
+                <p>
+                    Our products are based on traditional home-style recipes using
+                    fresh ingredients.
+                </p>
+
+                <h4>BAKED WITH LOVE</h4>
+                <p>
+                    Our passion for baking is poured into every recipe, serving smiles
+                    on a plate everyday.
+                </p>
+            </div>
+
+            <!-- Center Image -->
+            <div class="about-image">
+                <img src="Images/47886bc25e46cb16f8a799249443a59c8346b32b.png" alt="Dessert Shop">
+            </div>
+
+            <!-- Right Content -->
+            <div class="about-box">
+                <h4>COMMITTED TO QUALITY</h4>
+                <p>
+                    From our ingredients to our kitchen operations and guest services,
+                    we always prioritize quality.
+                </p>
+
+                <h4>HONESTLY PRICED</h4>
+                <p>
+                    We constantly strive to offer the best products at the right prices.
+                </p>
+            </div>
+
+        </div>
+
+        <div class="about-description">
+            <p>
+            The dessert house would be a dedicated establishment for sweet foods
+            and indulgent range of offerings that include brownies, cakes, desserts,
+            chocolates, breads, and savouries.
+            </p>
+
+            <p>
+            From our humble beginnings in 2024, when the first dessert house pastry
+            store opened its place of Karakudi, Tamil Nadu, we've grown to become
+            a Pan-India chain of patisseries with stores in over 10 cities.
+            </p>
+
+            <p>
+            Our mission is to spread happiness by serving smiles on a plate,
+            and this journey continues as we open dessert house patisseries
+            across the country.
+            </p>
+        </div>
+
+    </section>
+      <section class="story-section">
+
+        <div class="story-card">
+            <!-- Left Content -->
+            <div class="story-text">
+                <p><strong>We as a brand believe in the power of wishes.</strong></p>
+
+                <p class="highlight">
+                    Remember the days when you believed anything was possible?
+                </p>
+
+                <p>
+                    When dreams felt like they were within reach? We want to bring that
+                    sense of wonder back to your lives.
+                </p>
+
+                <p>
+                    With every cake we create, we aim to spark joy and remind you that
+                    dreams do come true.
+                </p>
+
+                <p>
+                    At the heart of our journey is constant innovation. Our in-house R & D
+                    centre helps us discover new flavours, reimagine classic desserts,
+                    and craft experiences that delight with every bite.
+                </p>
+
+                <p>
+                    This commitment to creativity and quality has not only won hearts
+                    but also earned us industry recognition, including the Swiggy Award
+                    for Best Dessert Brand — a milestone that sweetly affirms our mission.
+                </p>
+            </div>
+
+            <!-- Right Image -->
+            <div class="story-image">
+                <img src="Images/5ecb7bafb5d55844bf8db276b60c67623cee3b61.png" alt="Dessert">
+            </div>
+        </div>
+
+        <!-- Award Ribbon -->
+        <div class="award-ribbon">
+            Swiggy Award for Best Dessert Brand
+        </div>
+
+        <!-- Stats -->
+        <div class="stats">
+            <div class="stat-box">
+                <span>🏬</span>
+                <h4>Founded in 2024</h4>
+            </div>
+
+            <div class="stat-box">
+                <span>📍</span>
+                <h4>10 Cities</h4>
+            </div>
+
+            <div class="stat-box">
+                <span>🍰</span>
+                <h4>20+ Unique Desserts</h4>
+            </div>
+        </div>
+
+    </section>
+    <footer class="footer">
+        <h3>Quick links</h3>
+
+        <div class="footer-content">
+            <!-- Logo -->
+            <div class="footer-col brand">
+                <img src="Images/Group 8.png" alt="The Dessert House">
+                <h2>The Dessert House</h2>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- Links 1 -->
+            <div class="footer-col">
+                <a href="About Us.html">About Us</a>
+                <a href="All Desserts.html">Desserts</a>
+                <a href="Contact.html">Contact</a>
+                <a href="Blogs.html">Blogs</a>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- Links 2 -->
+            <div class="footer-col">
+                <a href="FAQ.html">FAQ</a>
+                <a href="Privacy Policy.html">Privacy Policy</a>
+                <a href="Terms and Conditions.html">Terms and Conditions</a>
+                <a href="Refund Policy.html">Refund Policy</a>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- Contact -->
+            <div class="footer-col contact">
+                <p>📞 +91 987 654 3210</p>
+                <p>✉ Contact@thedesserthouse.in</p>
+
+                <div class="socials">
+                    <span>▶</span>
+                    <span>f</span>
+                    <span>📸</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            © 2024 @thedesserthouse.in
+        </div>
+    </footer>
+  
+<script>
+  const openBtn = document.getElementById("openModal");
+  const modal = document.getElementById("loginModal");
+  const closeBtn = document.getElementById("closeModal");
+
+  openBtn.addEventListener("click", () => {
+    modal.style.display = "flex";
+  });
+
+  closeBtn.addEventListener("click", () => {
+    modal.style.display = "none";
+  });
+
+  window.addEventListener("click", (e) => {
+    if (e.target === modal) {
+      modal.style.display = "none";
+    }
+  });
+
+   const input = document.getElementById("loginInput");
+  const toggleLink = document.getElementById("toggleLink");
+
+  let isEmail = true;
+
+  toggleLink.addEventListener("click", function (e) {
+    e.preventDefault();
+
+    if (isEmail) {
+      input.type = "tel";
+      input.placeholder = "Enter mobile number";
+      input.value = "";
+      toggleLink.textContent = "With Email";
+    } else {
+      input.type = "email";
+      input.placeholder = "Enter email address";
+      input.value = "";
+      toggleLink.textContent = "With Mobile";
+    }
+
+    isEmail = !isEmail;
+  });
+</script>
+ <script>
+function handleSearch() {
+  const query = document.getElementById("searchInput").value.toLowerCase().trim();
+
+  if (query === "") return;
+
+  // Page mapping
+  if (query.includes("dessert")) {
+    window.location.href = "All Desserts.html";
+  } 
+  else if (query.includes("brownies")) {
+    window.location.href = "Brownies.html";
+  } 
+  else if (query.includes("pastry")) {
+    window.location.href = "Pastry.html";
+  } 
+   else if (query.includes("cup cake")) {
+    window.location.href = "Cup cake.html";
+  } 
+   else if (query.includes("tart")) {
+    window.location.href = "Tart.html";
+  } 
+   else if (query.includes("tea cake")) {
+    window.location.href = "Tea cake.html";
+  } 
+   else if (query.includes("jar cake")) {
+    window.location.href = "Jar cake.html";
+  } 
+  else {
+    alert("Page not found");
+  }
+}
+</script>
+<script>
+document.getElementById("searchInput").addEventListener("keypress", function (e) {
+  if (e.key === "Enter") {
+    handleSearch();
+  }
+});
+</script>
+
+</body>
+</html>

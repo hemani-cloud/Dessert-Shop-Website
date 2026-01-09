@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link href="https://fonts.googleapis.com/css2?family=Inria+Sans:wght@300;400;700&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Dessert House</title>
+  <style>
+    * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  }
+
+body {
+  background-color: #fff;
+  font-family: "Inria Sans", Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #ffd6d6;
+  padding: 12px 30px;
+}
+
+
+.logo {
+  display: flex;
+  flex-direction: column;   /* stack image & text vertically */
+  align-items: center;
+  color: #7a0026;
+  font-weight: bold;
+}
+
+.logo img {
+  width: 100px;
+  height: 60px;
+}
+
+.logo span {
+  font-size: 1.5rem;
+  margin-top: 4px;
+}
+
+
+/* CENTER */
+.nav-center {
+  display: flex;
+  list-style: none;
+  margin-left: 100px;
+  gap: 40px;
+}
+
+
+.nav-center a,
+.dropdown-btn {
+  text-decoration: none;
+  color: #7a0026;
+  font-weight: 700;
+  font-size: 1.8rem;
+  cursor: pointer;
+}
+
+/* Hide checkbox */
+#dessert-toggle {
+  display: none;
+}
+
+/* Dropdown */
+.dropdown {
+  position: relative;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 40px;
+  left: -20px;
+  background: #fbeeee;
+  border: 1.5px solid #000;
+  width: 200px;
+  padding: 15px 0;
+  list-style: none;
+  display: none;
+  z-index: 10;
+}
+
+.dropdown-menu li {
+  padding: 8px 25px;
+}
+
+.dropdown-menu li a {
+  color: #7a0026;
+  font-weight: 600;
+  font-size: 1.5rem;
+  padding: 10px;
+}
+
+.dropdown-menu li:hover {
+  background: #f4caca;
+}
+
+/* Show on click */
+#dessert-toggle:checked + .dropdown-btn + .dropdown-menu {
+  display: block;
+}
+
+/* RIGHT */
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  border: 1.5px solid #7a0026;
+  border-radius: 20px;
+  padding: 4px 10px;
+  background: #fff;
+}
+
+.search-box input {
+  border: none;
+  outline: none;
+  padding: 4px 6px;
+}
+.search-box button{
+    border: none;
+}
+/* Button */
+.auth-btn {
+  background-color: #fff;
+  border: 1px solid #7a0026;
+  color: #7a0026;
+  padding: 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.auth-btn:hover {
+  background-color: #7a0026;
+  color: #fff;
+}
+/* Overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+/* Modal Box */
+.modal {
+  background: #ffffff;
+  width: 460px;
+  padding: 25px;
+  border-radius: 20px;
+  position: relative;
+  text-align: left;
+}
+
+/* Close button */
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: #e6395c;
+  color: #fff;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+/* Title */
+.modal h2 {
+  margin-bottom: 20px;
+  font-size: 2rem;
+}
+
+/* Input */
+.modal input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  background: #f1f1f1;
+  font-size: 14px;
+}
+
+/* Mobile link */
+.mobile-link {
+  display: block;
+  text-align: right;
+  margin: 8px 0 18px;
+  font-size: 1.2rem;
+  color: blue;
+  text-decoration: underline;
+}
+
+/* OTP Button */
+.otp-btn {
+  width: 100%;
+  background: #ffd1d1;
+  border: none;
+  padding: 12px;
+  border-radius: 10px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  align-items: center;
+}
+
+/* Terms */
+.terms {
+  font-size: 1.2rem;
+  margin-top: 15px;
+  line-height: 1.5;
+}
+.terms-section {
+  max-width: 1200px;
+  margin: auto;
+}
+
+.terms-section h1 {
+  text-align: center;
+  color: #7a001f;
+  margin-bottom: 20px;
+  font-size: 2rem;
+}
+
+.terms-card {
+  background: #fdeeee;
+  border-radius: 20px;
+  padding: 30px 35px;
+}
+
+.terms-card h3 {
+  color: #7a001f;
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-top: 25px;
+  margin-bottom: 10px;
+}
+
+.terms-card ul {
+  margin-left: 20px;
+  line-height: 1.8;
+}
+
+.terms-card li {
+   font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+
+.terms-card a {
+  color: #0077cc;
+  text-decoration: none;
+   font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.terms-card a:hover {
+  text-decoration: underline;
+}
+
+.footer {
+  background-color: #ffd1d1;
+  padding: 50px 40px 0;
+  position: relative;
+}
+
+/* Title */
+.footer h3 {
+  text-align: center;
+  color: #7a0026;
+  font-size: 2rem;
+  margin-bottom: 40px;
+}
+
+/* Layout */
+.footer-content {
+  display: grid;
+  grid-template-columns: 1.2fr auto 1fr auto 1fr auto 1.2fr;
+  align-items: center;
+  max-width: 100%;
+  margin: auto;
+}
+
+/* Columns */
+.footer-col {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  color: #7a0026;
+  font-weight: 500;
+}
+
+.footer-col a {
+  text-decoration: none;
+   font-size: 1.5rem;
+  color: #7a0026;
+}
+
+.footer-col a:hover {
+  text-decoration: underline;
+}
+
+/* Brand */
+.brand img {
+  width: 105px;
+  margin-bottom: 8px;
+}
+
+.brand h2 {
+  font-size: 1.2rem;
+}
+
+/* Divider */
+.divider {
+  width: 1px;
+  height: 130px;
+  background-color: #7a0026;
+  margin-right: 50px;
+}
+
+/* Contact */
+.contact p {
+  font-weight: 600;
+   font-size: 1.5rem;
+}
+
+/* Social */
+.socials {
+  display: flex;
+  gap: 15px;
+  margin-top: 10px;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+/* Bottom */
+.footer-bottom {
+  text-align: center;
+  padding: 15px 0;
+  margin-top: 30px;
+   font-size: 1.2rem;
+  background-color: #ffffff;
+  font-weight: 600;
+}
+
+  </style>
+</head>
+<body>
+
+    <nav class="navbar">
+  <!-- LEFT : LOGO -->
+       <div class="logo">
+            <a href="Home.html"><img src="Images/Group 8.png" alt="Dessert House Logo"></a>
+            <span>The Dessert House</span>
+        </div>
+
+  <ul class="nav-center">
+    <li><a href="About Us.html">About Us</a></li>
+    <li class="dropdown">
+                <input type="checkbox" id="dessert-toggle">
+                <label for="dessert-toggle" class="dropdown-btn">Desserts</label>
+
+                <ul class="dropdown-menu">
+                    <li><a href="All Desserts.html">All Desserts</a></li>
+                    <li><a href="Pastry.html">Pastry</a></li>
+                    <li><a href="Brownies.html">Brownies</a></li>
+                    <li><a href="Tart.html">Tart</a></li>
+                    <li><a href="Tea cake.html">Tea Cake</a></li>
+                    <li><a href="Cup cake.html">Cup Cake</a></li>
+                    <li><a href="Jar cake.html">Jar Cake</a></li>
+                    <li><a href="Combos.html">Combos</a></li>
+                </ul>
+    </li>
+    <li><a href="Contact.html">Contact</a></li>
+  </ul>
+ 
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Search">
+            <button onclick="handleSearch()">🔍</button>
+        </div>
+   
+
+
+    <button class="auth-btn" id="openModal">Log In / Sign Up</button>
+           
+            <!-- Modal Overlay -->
+            <div class="modal-overlay" id="loginModal">
+                <div class="modal">
+                    <span class="close-btn" id="closeModal">&times;</span>
+
+                    <h2>Login / Sign Up</h2>
+
+                    <input type="email" id="loginInput" placeholder="Enter Email ID" />
+
+                    <a href="#" id="toggleLink" class="mobile-link">With Mobile</a>
+
+                    <button class="otp-btn">
+                    Get OTP <span>➜</span>
+                    </button>
+
+                    <p class="terms">
+                    By continuing I agree to The Dessert House’s
+                    <strong>Terms and Conditions</strong> and
+                    <strong>Privacy Policy</strong>.
+                    </p>
+                </div>
+            </div>
+
+  </div>
+</nav>
+    
+<section class="terms-section">
+  <h1>The Dessert House – Terms and Conditions</h1>
+
+  <div class="terms-card">
+
+    <h3>Introduction</h3>
+    <ul>
+      <li>Website owned by Bake Wish Pvt. Ltd., Tamil Nadu, India.</li>
+      <li>By ordering, you agree to these terms.</li>
+    </ul>
+
+    <h3>Orders</h3>
+    <ul>
+      <li>Provide accurate details and valid payment information.</li>
+      <li>Orders are subject to availability and confirmation.</li>
+      <li>Food/Goods are for personal use only (not resale).</li>
+    </ul>
+
+    <h3>Prices and Payments</h3>
+    <ul>
+      <li>Prices may vary; final price confirmed at checkout.</li>
+      <li>Payment online via UPI / Net Banking / Cards.</li>
+      <li>Details are secured via payment gateway.</li>
+      <li>The Dessert House never asks for banking PINs, OTPs, etc.</li>
+    </ul>
+
+    <h3>Delivery</h3>
+    <ul>
+      <li>Delivery time is approximate; delays possible.</li>
+      <li>Risk passes to customer once delivered.</li>
+      <li>Only one delivery attempt; wrong address/unavailable recipient counts as delivered.</li>
+      <li>No deliveries on national holidays or in case of natural calamities/curfews.</li>
+    </ul>
+
+    <h3>Cancellations and Refunds</h3>
+    <ul>
+      <li>Refer to website cancellation policy.</li>
+      <li>Once confirmed, orders cannot usually be modified/cancelled.</li>
+    </ul>
+
+    <h3>Complaints</h3>
+    <ul>
+      <li>Must be raised within 24 hours of delivery 
+        (<a href="mailto:care@thedesserthouse.com">care@thedesserthouse.com</a>).</li>
+      <li>Images are for reference; actual product may vary.</li>
+    </ul>
+
+    <h3>Liability</h3>
+    <ul>
+      <li>The Dessert House is not liable for indirect losses, late deliveries, or third-party website content.</li>
+      <li>Liability (if any) is limited to the order value.</li>
+      <li>Not liable for allergies/health issues not disclosed.</li>
+    </ul>
+
+    <h3>General</h3>
+    <ul>
+      <li>Indian law governs; jurisdiction of India.</li>
+      <li>Terms may change without notice.</li>
+      <li>Personal details may be used for transactional/promotional SMS, Email, WhatsApp.</li>
+      <li>Fraudulent orders may be reported to authorities.</li>
+    </ul>
+
+  </div>
+</section>
+   <footer class="footer">
+        <h3>Quick links</h3>
+
+        <div class="footer-content">
+            <!-- Logo -->
+            <div class="footer-col brand">
+                <img src="Images/Group 8.png" alt="The Dessert House">
+                <h2>The Dessert House</h2>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- Links 1 -->
+            <div class="footer-col">
+                <a href="About Us.html">About Us</a>
+                <a href="All Desserts.html">Desserts</a>
+                <a href="Contact.html">Contact</a>
+                <a href="Blogs.html">Blogs</a>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- Links 2 -->
+            <div class="footer-col">
+                <a href="FAQ.html">FAQ</a>
+                <a href="Privacy Policy.html">Privacy Policy</a>
+                <a href="Terms and Conditions.html">Terms and Conditions</a>
+                <a href="Refund Policy.html">Refund Policy</a>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- Contact -->
+            <div class="footer-col contact">
+                <p>📞 +91 987 654 3210</p>
+                <p>✉ Contact@thedesserthouse.in</p>
+
+                <div class="socials">
+                    <span>▶</span>
+                    <span>f</span>
+                    <span>📸</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            © 2024 @thedesserthouse.in
+        </div>
+    </footer>
+  
+<script>
+  const openBtn = document.getElementById("openModal");
+  const modal = document.getElementById("loginModal");
+  const closeBtn = document.getElementById("closeModal");
+
+  openBtn.addEventListener("click", () => {
+    modal.style.display = "flex";
+  });
+
+  closeBtn.addEventListener("click", () => {
+    modal.style.display = "none";
+  });
+
+  window.addEventListener("click", (e) => {
+    if (e.target === modal) {
+      modal.style.display = "none";
+    }
+  });
+
+   const input = document.getElementById("loginInput");
+  const toggleLink = document.getElementById("toggleLink");
+
+  let isEmail = true;
+
+  toggleLink.addEventListener("click", function (e) {
+    e.preventDefault();
+
+    if (isEmail) {
+      input.type = "tel";
+      input.placeholder = "Enter mobile number";
+      input.value = "";
+      toggleLink.textContent = "With Email";
+    } else {
+      input.type = "email";
+      input.placeholder = "Enter email address";
+      input.value = "";
+      toggleLink.textContent = "With Mobile";
+    }
+
+    isEmail = !isEmail;
+  });
+</script>
+ <script>
+function handleSearch() {
+  const query = document.getElementById("searchInput").value.toLowerCase().trim();
+
+  if (query === "") return;
+
+  // Page mapping
+  if (query.includes("dessert")) {
+    window.location.href = "All Desserts.html";
+  } 
+  else if (query.includes("brownies")) {
+    window.location.href = "Brownies.html";
+  } 
+  else if (query.includes("pastry")) {
+    window.location.href = "Pastry.html";
+  } 
+   else if (query.includes("cup cake")) {
+    window.location.href = "Cup cake.html";
+  } 
+   else if (query.includes("tart")) {
+    window.location.href = "Tart.html";
+  } 
+   else if (query.includes("tea cake")) {
+    window.location.href = "Tea cake.html";
+  } 
+   else if (query.includes("jar cake")) {
+    window.location.href = "Jar cake.html";
+  } 
+  else {
+    alert("Page not found");
+  }
+}
+</script>
+<script>
+document.getElementById("searchInput").addEventListener("keypress", function (e) {
+  if (e.key === "Enter") {
+    handleSearch();
+  }
+});
+</script>
+
+</body>
+</html>
